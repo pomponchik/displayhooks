@@ -1,0 +1,25 @@
+import sys
+
+if sys.version_info >= (3, 10):
+    from typing import TypeAlias, ParamSpec  # pragma: no cover
+else:
+    from typing_extensions import TypeAlias, ParamSpec  # pragma: no cover
+
+from typing import TypeVar, Callable, Any
+from functools import wraps
+
+
+FunctionParameters: TypeAlias = ParamSpec('FunctionParameters')
+ReturningValue: TypeAlias = TypeVar('ReturningValue')
+
+def autorestore_displayhook(function: Callable[FunctionParameters, ReturningValue]) -> Callable[FunctionParameters, ReturningValue]:
+    @wraps(function)
+    def wrapper(*args: FunctionParameters.args, **kwargs: FunctionParameters.kwargs) -> ReturningValue:
+        old_displayhook = sys.displayhook
+
+        try:
+            return function(*args, **kwargs)
+        finally:
+            sys.displayhook = old_displayhook
+
+    return wrapper
