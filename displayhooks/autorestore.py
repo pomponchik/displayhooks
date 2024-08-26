@@ -1,16 +1,16 @@
 import sys
 
 if sys.version_info >= (3, 10):
-    from typing import TypeAlias, ParamSpec  # pragma: no cover
+    from typing import ParamSpec  # pragma: no cover
 else:
-    from typing_extensions import TypeAlias, ParamSpec  # pragma: no cover
+    from typing_extensions import ParamSpec  # pragma: no cover
 
-from typing import TypeVar, Callable, Any
+from typing import TypeVar, Callable
 from functools import wraps
 
 
-FunctionParameters: TypeAlias = ParamSpec('FunctionParameters')
-ReturningValue: TypeAlias = TypeVar('ReturningValue')
+FunctionParameters = ParamSpec('FunctionParameters')
+ReturningValue = TypeVar('ReturningValue')
 
 def autorestore_displayhook(function: Callable[FunctionParameters, ReturningValue]) -> Callable[FunctionParameters, ReturningValue]:
     @wraps(function)
