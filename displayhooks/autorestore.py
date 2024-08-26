@@ -10,7 +10,7 @@ from functools import wraps
 
 
 FunctionParameters = ParamSpec('FunctionParameters')
-ReturningValue: TypeAlias = TypeVar('ReturningValue')
+ReturningValue = TypeVar('ReturningValue')
 
 def autorestore_displayhook(function: Callable[FunctionParameters, ReturningValue]) -> Callable[FunctionParameters, ReturningValue]:
     @wraps(function)
