@@ -26,9 +26,9 @@ def test_not_display_only_ints():
     ['callable'],
     [
         (lambda: not_display(int, float),),
-        (lambda: [not_display(int), not_display(float)],),
+        (lambda: [not_display(int), not_display(float)],),  # type: ignore[func-returns-value]
         (lambda: not_display(float, int),),
-        (lambda: [not_display(float), not_display(int)],),
+        (lambda: [not_display(float), not_display(int)],),  # type: ignore[func-returns-value]
     ],
 )
 @autorestore_displayhook
