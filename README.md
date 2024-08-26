@@ -2,6 +2,12 @@
 
 It's a micro library for manipulating [`sys.displayhook`](https://docs.python.org/3/library/sys.html#sys.displayhook).
 
+When you need to change the standard behavior of `displayhook`, with this library you will do it:
+
+- declaratively
+- compactly
+- beautifully
+
 
 ## Table of contents
 
@@ -28,7 +34,7 @@ from displayhooks import not_display
 not_display(int)
 
 sys.displayhook('Most of the adventures recorded in this book really occurred; one or two were experiences of my own, the rest those of boys who were schoolmates of mine.')
-#> Most of the adventures recorded in this book really occurred; one or two were experiences of my own, the rest those of boys who were schoolmates of mine.
+#> 'Most of the adventures recorded in this book really occurred; one or two were experiences of my own, the rest those of boys who were schoolmates of mine.'
 sys.displayhook(666)
 # [nothing!]
 ```
@@ -40,19 +46,57 @@ You can declaratively declare a converter function for the printed values. What 
 ```python
 import sys
 from displayhooks import converted_displayhook
-from termcolor import colored
 
 @converted_displayhook
-def new_displayhook(value: Any) -> Any:
-    colored(repr(value), 'red')
+def new_displayhook(value):
+    return value.lower()
 
 sys.displayhook("What’s gone with that boy, I wonder? You TOM!")
-#> What’s gone with that boy, I wonder? You TOM!
-# You can't see it here, but believe me, if you repeat the code at home, the output in the console will be red!
+#> 'what’s gone with that boy, i wonder? you tom!'
 ```
 
 If your function returns `None`, nothing will be printed.
 
 
 ## Prohibiting the display of certain types of values
+
+You can disable the display of certain data types, similar to how [`NoneType`](https://docs.python.org/3/library/types.html#types.NoneType) values are ignored by default.
+
+You could already see a similar example above, let's look at it again:
+
+```python
+import sys
+from types import FunctionType
+from displayhooks import not_display
+
+not_display(FunctionType)
+
+sys.displayhook('Nothing! Look at your hands. And look at your mouth. What is that truck?')
+#> 'Nothing! Look at your hands. And look at your mouth. What is that truck?'
+sys.displayhook(lambda x: x)
+# [nothing!]
+```
+
+In this example, you can see that we have disabled the display for functions, but all other data types are displayed unchanged.
+
+
 ## Automatic recovery of the default hook
+
+You can limit the impact on [`sys.displayhook`](https://docs.python.org/3/library/sys.html#sys.displayhook) only to the code inside a function. If you hang the `autorestore_displayhook` decorator on it, after exiting the function, the displayhook that was installed before it was called will be automatically restored:
+
+```python
+import sys
+from types import FunctionType
+from displayhooks import not_display, autorestore_displayhook
+
+@autorestore_displayhook
+def do_something_dangerous():
+    not_display(FunctionType)
+    sys.displayhook(do_something_dangerous)
+    # [nothing!]
+
+do_something_dangerous()
+
+sys.displayhook(do_something_dangerous)
+#> <function do_something_dangerous at 0x104c980e0>
+```
