@@ -11,7 +11,7 @@ def converted_displayhook(function: Callable[[Any], Any]) -> Callable[[Any], Any
         old_displayhook = sys.displayhook
 
         @wraps(function)
-        def new_displayhook(value: Any) -> None:
+        def new_displayhook(value: Any) -> Any:
             return old_displayhook(function(value))
 
         sys.displayhook = new_displayhook
