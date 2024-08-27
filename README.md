@@ -1,5 +1,17 @@
 # displayhooks
 
+[![Downloads](https://static.pepy.tech/badge/displayhooks/month)](https://pepy.tech/project/displayhooks)
+[![Downloads](https://static.pepy.tech/badge/displayhooks)](https://pepy.tech/project/displayhooks)
+[![codecov](https://codecov.io/gh/pomponchik/displayhooks/graph/badge.svg?token=UXXTj1AIcT)](https://codecov.io/gh/pomponchik/displayhooks)
+[![Lines of code](https://sloc.xyz/github/pomponchik/displayhooks/?category=code)](https://github.com/boyter/scc/)
+[![Hits-of-Code](https://hitsofcode.com/github/pomponchik/displayhooks?branch=main)](https://hitsofcode.com/github/pomponchik/displayhooks/view?branch=main)
+[![Test-Package](https://github.com/pomponchik/displayhooks/actions/workflows/tests_and_coverage.yml/badge.svg)](https://github.com/pomponchik/metronomes/actions/workflows/tests_and_coverage.yml)
+[![Python versions](https://img.shields.io/pypi/pyversions/displayhooks.svg)](https://pypi.python.org/pypi/displayhooks)
+[![PyPI version](https://badge.fury.io/py/displayhooks.svg)](https://badge.fury.io/py/displayhooks)
+[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
+
 It's a micro library for manipulating [`sys.displayhook`](https://docs.python.org/3/library/sys.html#sys.displayhook).
 
 When you need to change the standard behavior of `displayhook`, with this library you will do it:
