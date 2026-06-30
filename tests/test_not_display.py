@@ -9,6 +9,7 @@ from displayhooks import autorestore_displayhook, not_display
 
 @autorestore_displayhook
 def test_not_display_only_ints():
+    """Suppress integer displayhook output while preserving normal string output."""
     not_display(int)
 
     def display_something(something):
@@ -33,6 +34,7 @@ def test_not_display_only_ints():
 )
 @autorestore_displayhook
 def test_not_display_ints_and_floats(some_callable):
+    """Suppress ints and floats for combined or separate registrations in either order while preserving string output."""
     some_callable()
 
     def display_something(something):

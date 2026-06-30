@@ -7,6 +7,7 @@ from displayhooks import autorestore_displayhook
 
 
 def test_restore():
+    """Restore the pre-call sys.displayhook after a decorated function changes it and returns normally."""
     hook_before_declaration = sys.displayhook
 
     @autorestore_displayhook
@@ -22,6 +23,7 @@ def test_restore():
 
 
 def test_restore_after_exception():
+    """Restore the pre-call sys.displayhook and propagate an exception from a decorated function that changes it."""
     hook_before_declaration = sys.displayhook
 
     @autorestore_displayhook
