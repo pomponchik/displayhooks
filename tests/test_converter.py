@@ -19,6 +19,7 @@ from displayhooks import autorestore_displayhook, converted_displayhook
 )
 @autorestore_displayhook
 def test_empty_convert(value):
+    """Identity converters preserve normal displayhook output for non-None values."""
     @converted_displayhook
     def new_displayhook(value: Any) -> Any:
         return value
@@ -34,6 +35,7 @@ def test_empty_convert(value):
 
 @autorestore_displayhook
 def test_empty_convert_with_none():
+    """An identity converter preserves sys.displayhook's no-output behavior for None."""
     @converted_displayhook
     def new_displayhook(value: Any) -> Any:
         return value
@@ -58,6 +60,7 @@ def test_empty_convert_with_none():
 )
 @autorestore_displayhook
 def test_elliminating_convertion(value):
+    """Suppress output for non-None values when the converter returns None."""
     @converted_displayhook
     def new_displayhook(value: Any) -> Any:  # noqa: ARG001
         return None
@@ -73,6 +76,7 @@ def test_elliminating_convertion(value):
 
 @autorestore_displayhook
 def test_elliminating_convertion_with_none():
+    """Write no output when the input is None and the converter returns None."""
     @converted_displayhook
     def new_displayhook(value: Any) -> Any:  # noqa: ARG001
         return None
@@ -97,6 +101,7 @@ def test_elliminating_convertion_with_none():
 )
 @autorestore_displayhook
 def test_real_convertion(value):
+    """A converted displayhook shows the converter result with normal displayhook formatting."""
     @converted_displayhook
     def new_displayhook(value: Any) -> Any:  # noqa: ARG001
         return 'cheburek'

@@ -43,7 +43,7 @@ Install it:
 pip install displayhooks
 ```
 
-Then use it: 
+Then use: 
 
 ```python
 import sys
