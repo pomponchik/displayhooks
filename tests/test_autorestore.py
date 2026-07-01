@@ -7,16 +7,18 @@ from displayhooks import autorestore_displayhook
 
 
 def test_restore():
-    """Restore the pre-call sys.displayhook after a decorated function changes it and returns normally."""
+    """Restore the pre-call sys.displayhook and preserve the return value after a decorated function changes it."""
     hook_before_declaration = sys.displayhook
+    result = object()
 
     @autorestore_displayhook
     def do_something():
         sys.displayhook = 5
+        return result
 
     hook_before_calling = sys.displayhook
 
-    do_something()
+    assert do_something() is result
 
     assert hook_before_declaration is sys.displayhook
     assert hook_before_calling is sys.displayhook
